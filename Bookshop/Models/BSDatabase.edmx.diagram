@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="eb48d2ce021944af8c9e75b36e5a6111" Name="Diagram1">
+        <EntityTypeShape EntityType="BOOKSHOPModel.NHA_CUNG_CAP" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BOOKSHOPModel.NHA_XUAT_BAN" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BOOKSHOPModel.SACH" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="BOOKSHOPModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BOOKSHOPModel.TAC_GIA" Width="1.5" PointX="0.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BOOKSHOPModel.THE_LOAI" Width="1.5" PointX="0.75" PointY="11.5" IsExpanded="true" />
+        <AssociationConnector Association="BOOKSHOPModel.FK_SACH_NCC1" ManuallyRouted="false" />
+        <AssociationConnector Association="BOOKSHOPModel.FK_SACH_NCC" ManuallyRouted="false" />
+        <AssociationConnector Association="BOOKSHOPModel.FK_SACH_TG" ManuallyRouted="false" />
+        <AssociationConnector Association="BOOKSHOPModel.FK_SACH_TL" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

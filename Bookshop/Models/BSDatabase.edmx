@@ -1,0 +1,389 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BOOKSHOPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="NHA_CUNG_CAP">
+          <Key>
+            <PropertyRef Name="ID_NCC" />
+          </Key>
+          <Property Name="ID_NCC" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Ten_NCC" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nchar" MaxLength="50" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="100" />
+          <Property Name="SDT" Type="nchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="NHA_XUAT_BAN">
+          <Key>
+            <PropertyRef Name="ID_NXB" />
+          </Key>
+          <Property Name="ID_NXB" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Ten_NXB" Type="nvarchar" MaxLength="100" />
+          <Property Name="Email" Type="nchar" MaxLength="50" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="100" />
+          <Property Name="SDT" Type="nchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="SACH">
+          <Key>
+            <PropertyRef Name="ID_S" />
+          </Key>
+          <Property Name="ID_S" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="ID_NXB" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="ID_TG" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="ID_TL" Type="nchar" MaxLength="10" />
+          <Property Name="Ten" Type="nvarchar" MaxLength="100" />
+          <Property Name="BiaSach" Type="image" />
+          <Property Name="Ngay_XuatBan" Type="date" />
+          <Property Name="KichThuoc" Type="float" />
+          <Property Name="SoTrang" Type="int" />
+          <Property Name="TinhTrang" Type="bit" />
+          <Property Name="SoLuong" Type="int" />
+          <Property Name="GiaBia" Type="float" />
+          <Property Name="ChiTiet" Type="nvarchar" MaxLength="200" />
+          <Property Name="ID_NCC" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TAC_GIA">
+          <Key>
+            <PropertyRef Name="ID_TG" />
+          </Key>
+          <Property Name="ID_TG" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="TenTG" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="THE_LOAI">
+          <Key>
+            <PropertyRef Name="ID_TL" />
+          </Key>
+          <Property Name="ID_TL" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Ten_TL" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_SACH_NCC">
+          <End Role="NHA_XUAT_BAN" Type="Self.NHA_XUAT_BAN" Multiplicity="1" />
+          <End Role="SACH" Type="Self.SACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHA_XUAT_BAN">
+              <PropertyRef Name="ID_NXB" />
+            </Principal>
+            <Dependent Role="SACH">
+              <PropertyRef Name="ID_NXB" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SACH_NCC1">
+          <End Role="NHA_CUNG_CAP" Type="Self.NHA_CUNG_CAP" Multiplicity="1" />
+          <End Role="SACH" Type="Self.SACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHA_CUNG_CAP">
+              <PropertyRef Name="ID_NCC" />
+            </Principal>
+            <Dependent Role="SACH">
+              <PropertyRef Name="ID_NCC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SACH_TG">
+          <End Role="TAC_GIA" Type="Self.TAC_GIA" Multiplicity="1" />
+          <End Role="SACH" Type="Self.SACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAC_GIA">
+              <PropertyRef Name="ID_TG" />
+            </Principal>
+            <Dependent Role="SACH">
+              <PropertyRef Name="ID_TG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SACH_TL">
+          <End Role="THE_LOAI" Type="Self.THE_LOAI" Multiplicity="0..1" />
+          <End Role="SACH" Type="Self.SACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THE_LOAI">
+              <PropertyRef Name="ID_TL" />
+            </Principal>
+            <Dependent Role="SACH">
+              <PropertyRef Name="ID_TL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BOOKSHOPModelStoreContainer">
+          <EntitySet Name="NHA_CUNG_CAP" EntityType="Self.NHA_CUNG_CAP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NHA_XUAT_BAN" EntityType="Self.NHA_XUAT_BAN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SACH" EntityType="Self.SACH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TAC_GIA" EntityType="Self.TAC_GIA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="THE_LOAI" EntityType="Self.THE_LOAI" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_SACH_NCC" Association="Self.FK_SACH_NCC">
+            <End Role="NHA_XUAT_BAN" EntitySet="NHA_XUAT_BAN" />
+            <End Role="SACH" EntitySet="SACH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SACH_NCC1" Association="Self.FK_SACH_NCC1">
+            <End Role="NHA_CUNG_CAP" EntitySet="NHA_CUNG_CAP" />
+            <End Role="SACH" EntitySet="SACH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SACH_TG" Association="Self.FK_SACH_TG">
+            <End Role="TAC_GIA" EntitySet="TAC_GIA" />
+            <End Role="SACH" EntitySet="SACH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SACH_TL" Association="Self.FK_SACH_TL">
+            <End Role="THE_LOAI" EntitySet="THE_LOAI" />
+            <End Role="SACH" EntitySet="SACH" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BOOKSHOPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="NHA_CUNG_CAP">
+          <Key>
+            <PropertyRef Name="ID_NCC" />
+          </Key>
+          <Property Name="ID_NCC" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Ten_NCC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="SACHes" Relationship="Self.FK_SACH_NCC1" FromRole="NHA_CUNG_CAP" ToRole="SACH" />
+        </EntityType>
+        <EntityType Name="NHA_XUAT_BAN">
+          <Key>
+            <PropertyRef Name="ID_NXB" />
+          </Key>
+          <Property Name="ID_NXB" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Ten_NXB" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="SACHes" Relationship="Self.FK_SACH_NCC" FromRole="NHA_XUAT_BAN" ToRole="SACH" />
+        </EntityType>
+        <EntityType Name="SACH">
+          <Key>
+            <PropertyRef Name="ID_S" />
+          </Key>
+          <Property Name="ID_S" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ID_NXB" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ID_TG" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ID_TL" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Ten" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BiaSach" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Ngay_XuatBan" Type="DateTime" Precision="0" />
+          <Property Name="KichThuoc" Type="Double" />
+          <Property Name="SoTrang" Type="Int32" />
+          <Property Name="TinhTrang" Type="Boolean" />
+          <Property Name="SoLuong" Type="Int32" />
+          <Property Name="GiaBia" Type="Double" />
+          <Property Name="ChiTiet" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ID_NCC" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="NHA_CUNG_CAP" Relationship="Self.FK_SACH_NCC1" FromRole="SACH" ToRole="NHA_CUNG_CAP" />
+          <NavigationProperty Name="NHA_XUAT_BAN" Relationship="Self.FK_SACH_NCC" FromRole="SACH" ToRole="NHA_XUAT_BAN" />
+          <NavigationProperty Name="TAC_GIA" Relationship="Self.FK_SACH_TG" FromRole="SACH" ToRole="TAC_GIA" />
+          <NavigationProperty Name="THE_LOAI" Relationship="Self.FK_SACH_TL" FromRole="SACH" ToRole="THE_LOAI" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TAC_GIA">
+          <Key>
+            <PropertyRef Name="ID_TG" />
+          </Key>
+          <Property Name="ID_TG" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="TenTG" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SACHes" Relationship="Self.FK_SACH_TG" FromRole="TAC_GIA" ToRole="SACH" />
+        </EntityType>
+        <EntityType Name="THE_LOAI">
+          <Key>
+            <PropertyRef Name="ID_TL" />
+          </Key>
+          <Property Name="ID_TL" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Ten_TL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SACHes" Relationship="Self.FK_SACH_TL" FromRole="THE_LOAI" ToRole="SACH" />
+        </EntityType>
+        <Association Name="FK_SACH_NCC1">
+          <End Role="NHA_CUNG_CAP" Type="Self.NHA_CUNG_CAP" Multiplicity="1" />
+          <End Role="SACH" Type="Self.SACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHA_CUNG_CAP">
+              <PropertyRef Name="ID_NCC" />
+            </Principal>
+            <Dependent Role="SACH">
+              <PropertyRef Name="ID_NCC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SACH_NCC">
+          <End Role="NHA_XUAT_BAN" Type="Self.NHA_XUAT_BAN" Multiplicity="1" />
+          <End Role="SACH" Type="Self.SACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHA_XUAT_BAN">
+              <PropertyRef Name="ID_NXB" />
+            </Principal>
+            <Dependent Role="SACH">
+              <PropertyRef Name="ID_NXB" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SACH_TG">
+          <End Role="TAC_GIA" Type="Self.TAC_GIA" Multiplicity="1" />
+          <End Role="SACH" Type="Self.SACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAC_GIA">
+              <PropertyRef Name="ID_TG" />
+            </Principal>
+            <Dependent Role="SACH">
+              <PropertyRef Name="ID_TG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SACH_TL">
+          <End Role="THE_LOAI" Type="Self.THE_LOAI" Multiplicity="0..1" />
+          <End Role="SACH" Type="Self.SACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THE_LOAI">
+              <PropertyRef Name="ID_TL" />
+            </Principal>
+            <Dependent Role="SACH">
+              <PropertyRef Name="ID_TL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BOOKSHOPEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="NHA_CUNG_CAP" EntityType="Self.NHA_CUNG_CAP" />
+          <EntitySet Name="NHA_XUAT_BAN" EntityType="Self.NHA_XUAT_BAN" />
+          <EntitySet Name="SACHes" EntityType="Self.SACH" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="TAC_GIA" EntityType="Self.TAC_GIA" />
+          <EntitySet Name="THE_LOAI" EntityType="Self.THE_LOAI" />
+          <AssociationSet Name="FK_SACH_NCC1" Association="Self.FK_SACH_NCC1">
+            <End Role="NHA_CUNG_CAP" EntitySet="NHA_CUNG_CAP" />
+            <End Role="SACH" EntitySet="SACHes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SACH_NCC" Association="Self.FK_SACH_NCC">
+            <End Role="NHA_XUAT_BAN" EntitySet="NHA_XUAT_BAN" />
+            <End Role="SACH" EntitySet="SACHes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SACH_TG" Association="Self.FK_SACH_TG">
+            <End Role="TAC_GIA" EntitySet="TAC_GIA" />
+            <End Role="SACH" EntitySet="SACHes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SACH_TL" Association="Self.FK_SACH_TL">
+            <End Role="THE_LOAI" EntitySet="THE_LOAI" />
+            <End Role="SACH" EntitySet="SACHes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BOOKSHOPModelStoreContainer" CdmEntityContainer="BOOKSHOPEntities">
+          <EntitySetMapping Name="NHA_CUNG_CAP">
+            <EntityTypeMapping TypeName="BOOKSHOPModel.NHA_CUNG_CAP">
+              <MappingFragment StoreEntitySet="NHA_CUNG_CAP">
+                <ScalarProperty Name="ID_NCC" ColumnName="ID_NCC" />
+                <ScalarProperty Name="Ten_NCC" ColumnName="Ten_NCC" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NHA_XUAT_BAN">
+            <EntityTypeMapping TypeName="BOOKSHOPModel.NHA_XUAT_BAN">
+              <MappingFragment StoreEntitySet="NHA_XUAT_BAN">
+                <ScalarProperty Name="ID_NXB" ColumnName="ID_NXB" />
+                <ScalarProperty Name="Ten_NXB" ColumnName="Ten_NXB" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SACHes">
+            <EntityTypeMapping TypeName="BOOKSHOPModel.SACH">
+              <MappingFragment StoreEntitySet="SACH">
+                <ScalarProperty Name="ID_S" ColumnName="ID_S" />
+                <ScalarProperty Name="ID_NXB" ColumnName="ID_NXB" />
+                <ScalarProperty Name="ID_TG" ColumnName="ID_TG" />
+                <ScalarProperty Name="ID_TL" ColumnName="ID_TL" />
+                <ScalarProperty Name="Ten" ColumnName="Ten" />
+                <ScalarProperty Name="BiaSach" ColumnName="BiaSach" />
+                <ScalarProperty Name="Ngay_XuatBan" ColumnName="Ngay_XuatBan" />
+                <ScalarProperty Name="KichThuoc" ColumnName="KichThuoc" />
+                <ScalarProperty Name="SoTrang" ColumnName="SoTrang" />
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="GiaBia" ColumnName="GiaBia" />
+                <ScalarProperty Name="ChiTiet" ColumnName="ChiTiet" />
+                <ScalarProperty Name="ID_NCC" ColumnName="ID_NCC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="BOOKSHOPModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TAC_GIA">
+            <EntityTypeMapping TypeName="BOOKSHOPModel.TAC_GIA">
+              <MappingFragment StoreEntitySet="TAC_GIA">
+                <ScalarProperty Name="ID_TG" ColumnName="ID_TG" />
+                <ScalarProperty Name="TenTG" ColumnName="TenTG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="THE_LOAI">
+            <EntityTypeMapping TypeName="BOOKSHOPModel.THE_LOAI">
+              <MappingFragment StoreEntitySet="THE_LOAI">
+                <ScalarProperty Name="ID_TL" ColumnName="ID_TL" />
+                <ScalarProperty Name="Ten_TL" ColumnName="Ten_TL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
