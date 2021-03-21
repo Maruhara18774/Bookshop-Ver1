@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Bookshop.Models.NHA_XUAT_BAN>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Quản lý nhà xuất bản</title>
+</head>
+<body>
+    <div>
+        @Html.ActionLink("Thêm nhà xuất bản", "AddPublisher")
+    </div>
+    <div>
+        @foreach (var item in Model)
+        {
+            <hr />
+            <p>Mã: <b>@item.ID_NXB</b></p>
+            <p>Tên: <b>@item.Ten_NXB</b></p>
+            <p>Email: <b>@item.Email</b></p>
+            <p>Địa chỉ: <b>@item.DiaChi</b></p>
+            <p>Số điện thoại: <b>@item.SDT</b></p>
+
+            @Html.ActionLink("Sửa", "EditPublisher", new { id = item.ID_NXB.Trim() })
+            <br />
+            @Html.ActionLink("Xóa", "DeletePublisher", new { id = item.ID_NXB.Trim() })
+
+        }
+    </div>
+</body>
+</html>
